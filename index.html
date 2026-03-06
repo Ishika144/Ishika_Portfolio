@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ishika Pradhan | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-2: #a855f7;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.3);
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --blur-glass: blur(20px);
+      --nav-height: 70px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Outfit", system-ui, sans-serif;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1e3a5f 0%, #0a0f1a 50%, #030712 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background orbits */
+    .bg-orbit {
+      position: fixed;
+      inset: -50%;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(56, 189, 248, 0.25) 0, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(168, 85, 247, 0.2) 0, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 50% 90%, rgba(34, 211, 238, 0.15) 0, transparent 50%);
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .grain {
+      position: fixed;
+      inset: -20%;
+      z-index: -1;
+      opacity: 0.35;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem 4rem;
+    }
+
+    /* Navbar */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(to bottom, rgba(10, 15, 26, 0.95), rgba(10, 15, 26, 0.7));
+      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      background: conic-gradient(from 200deg, #38bdf8, #a855f7, #22c55e, #38bdf8);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.55);
+    }
+
+    .brand-initials {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 20% 0%, #1f2937, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .brand-tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.95));
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      box-shadow: 0 0 18px rgba(15, 23, 42, 0.8);
+    }
+
+    .nav-cta a span {
+      font-size: 0.95rem;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 3.5rem 1.5rem 3.5rem;
+      margin-top: 1.5rem;
+      border-radius: 28px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: linear-gradient(180deg, rgba(30, 58, 95, 0.4) 0%, rgba(15, 23, 42, 0.9) 50%, rgba(10, 15, 26, 0.95) 100%);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-badge-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.18rem 0.18rem 0.18rem 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 0.96));
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.9);
+      margin-bottom: 1.35rem;
+      justify-content: center;
+    }
+
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+
+    .hero-badge-pill span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+    }
+
+    .hero-badge-row small {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0 0.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.9rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #7dd3fc, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      margin-bottom: 1.8rem;
+      justify-content: center;
+    }
+
+    .hero-highlight span {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.75rem;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.65rem 1.35rem;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      box-shadow: 0 8px 32px rgba(56, 189, 248, 0.45);
+      color: #0b1120;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(56, 189, 248, 0.55);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.7);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-contact-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-contact-line span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-contact-line a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .profile-card {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.5rem 1.8rem;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.44), transparent 58%),
+        radial-gradient(circle at 90% 100%, rgba(168, 85, 247, 0.45), transparent 55%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.85));
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.95);
+      overflow: hidden;
+    }
+
+    .profile-card-orbit {
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.36), transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(96, 165, 250, 0.22), transparent 55%);
+      opacity: 0.75;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .profile-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-photo-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      padding: 2px;
+      background: conic-gradient(from 210deg, rgba(56, 189, 248, 1), rgba(168, 85, 247, 0.95), rgba(56, 189, 248, 1));
+      box-shadow: 0 0 26px rgba(56, 189, 248, 0.65);
+      overflow: hidden;
+    }
+
+    .profile-photo-ring {
+      position: absolute;
+      inset: 10%;
+      border-radius: inherit;
+      border: 1px dashed rgba(15, 23, 42, 0.9);
+      opacity: 0.7;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 20% 0%, #1f2937, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .profile-info {
+      text-align: center;
+    }
+
+    .profile-info h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .profile-info p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      justify-content: center;
+    }
+
+    .profile-tags span {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .profile-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric {
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .metric span {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .profile-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-location {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .profile-location span {
+      display: block;
+      font-size: 0.9em;
+    }
+
+    .profile-links {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.1s ease, background 0.1s ease;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: rgba(15, 23, 42, 1);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    .floating-pill {
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+      z-index: 2;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    section:not(#about) .section-header::before {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      margin-bottom: 0.6rem;
+      opacity: 0.9;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 1);
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Cards & layouts - single column (downwards) */
+    .grid-2 {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .card {
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(56, 189, 248, 0.05);
+      padding: 1.5rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(56, 189, 248, 0.08);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent 55%);
+      transition: opacity 0.25s ease;
+      z-index: -1;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.12rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .card-body {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card-body ul {
+      margin-top: 0.4rem;
+      padding-left: 1rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .chip.accent {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Education timeline */
+    .timeline {
+      position: relative;
+      padding-left: 1.3rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(148, 163, 184, 0.9), transparent);
+      opacity: 0.8;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 1rem 1rem 1rem 1.2rem;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .timeline-item:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -1.0rem;
+      top: 0.9rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+    }
+
+    .timeline-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-extra {
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    /* Skills - single column */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .skill-block {
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .skill-block h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .skill-tags span {
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 0.75rem;
+      color: var(--text);
+    }
+
+    /* Projects */
+    .project-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .project-impact {
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-top: 0.3rem;
+    }
+
+    /* Extra */
+    .extra-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      padding-top: 2rem;
+      margin-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        padding-top: 2.6rem;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .nav-inner {
+        height: auto;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 0.8rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-cta {
+        margin-left: auto;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+      .wrapper {
+        padding-inline: 1rem;
+      }
+
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      .profile-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-orbit"></div>
+  <div class="grain"></div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-badge">
+          <div class="brand-initials">IP</div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Ishika Pradhan</span>
+          <span class="brand-tagline">Web & VLSI Enthusiast</span>
+        </div>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <nav class="nav-links">
+        <a href="#about" class="active">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#extra">Extra</a>
+        <div class="nav-cta">
+          <a href="mailto:ishikapradhan769@gmail.com">
+            <span>✉</span>
+            Contact
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <!-- Hero -->
+    <section id="about" class="hero reveal">
+      <div class="hero-content">
+        <div class="hero-badge-row">
+          <div class="hero-badge-pill">
+            <span></span>
+            Available for internships
+          </div>
+          <small>B.Tech, E&TC • VSSUT (CGPA 8.18)</small>
+        </div>
+
+        <h1 class="hero-title">
+          Hi, I'm <span>Ishika Pradhan</span> —
+          crafting modern web experiences & digital systems.
+        </h1>
+
+        <p class="hero-subtitle">
+          Final-year Electronics and Telecommunication Engineering student with a passion for
+          building clean, responsive web applications and designing reliable FPGA-based digital circuits.
+        </p>
+
+        <div class="hero-highlight">
+          <span>Graduating July 2026 · Burla, India</span>
+          <span>Full-stack fundamentals · VLSI basics</span>
+          <span>Open to SDE / Web / VLSI roles</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#experience" class="btn btn-ghost">Experience Snapshot</a>
+        </div>
+
+        <div class="hero-contact-line">
+          <span>📞 <strong>+91&nbsp;63709&nbsp;45757</strong></span>
+          <span>✉ <a href="mailto:ishikapradhan769@gmail.com">ishikapradhan769@gmail.com</a></span>
+          <span>in/ <a href="https://www.linkedin.com/in/ishika-pradhan-403333278" target="_blank"
+              rel="noopener noreferrer">LinkedIn</a></span>
+          <span>💻 <a href="https://github.com/Ishika144" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="profile-card">
+          <div class="profile-card-orbit"></div>
+          <div class="floating-pill">2026 Grad · E&TC</div>
+          <div class="profile-top">
+            <div class="profile-photo-wrap">
+              <div class="profile-photo-ring"></div>
+              <!-- Profile photo.
+                   Ensure your image file is named "ipp.jpg" and placed in the same folder as this HTML file. -->
+              <img src="ipp.jpg" alt="Profile photo of Ishika Pradhan" class="profile-photo"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="profile-photo-placeholder">IP</div>
+            </div>
+            <div class="profile-info">
+              <h2>Ishika Pradhan</h2>
+              <p>B.Tech, Electronics & Telecommunication Engineering • VSSUT</p>
+              <div class="profile-tags">
+                <span>Web Development</span>
+                <span>VLSI</span>
+                <span>Problem Solving</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-metrics">
+            <div class="metric">
+              <strong>8.18</strong>
+              <span>Current CGPA</span>
+            </div>
+            <div class="metric">
+              <strong>2026</strong>
+              <span>Graduation Year</span>
+            </div>
+            <div class="metric">
+              <strong>2+</strong>
+              <span>Domain Internships</span>
+            </div>
+          </div>
+
+          <div class="profile-footer">
+            <div class="profile-location">
+              <span>📍 Burla, India</span>
+              <span>Open to relocation</span>
+            </div>
+            <div class="profile-links">
+              <a class="icon-btn" href="https://www.linkedin.com/in/ishika-pradhan-403333278" target="_blank"
+                rel="noopener noreferrer" title="LinkedIn">
+                in
+              </a>
+              <a class="icon-btn" href="https://github.com/Ishika144" target="_blank" rel="noopener noreferrer"
+                title="GitHub">
+                &#xf09b;
+              </a>
+              <a class="icon-btn" href="mailto:ishikapradhan769@gmail.com" title="Email">
+                ✉
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Education & Skills -->
+    <section id="education" class="reveal">
+      <div class="section-header">
+        <div class="section-title">
+          <span></span>
+          Education
+        </div>
+        <p class="section-subtitle">Strong academic foundation with consistent performance.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="timeline-title">B.Tech, Electronics & Telecommunication Engineering</h3>
+              <p class="timeline-meta">Veer Surendra Sai University Of Technology · Burla, India</p>
+              <p class="timeline-extra">CGPA: 8.18 · Graduating July 2026</p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="timeline-title">Intermediate</h3>
+              <p class="timeline-meta">DAV Public School · Berhampur, India</p>
+              <p class="timeline-extra">Score: 88.4%</p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="timeline-title">Matriculation</h3>
+              <p class="timeline-meta">DAV Public School · Berhampur, India</p>
+              <p class="timeline-extra">Score: 93.8%</p>
+            </article>
+          </div>
+        </div>
+
+        <div id="skills" class="card">
+          <div class="section-header" style="margin-bottom: 0.7rem;">
+            <div class="section-title">
+              <span></span>
+              Technical Skills
+            </div>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-block">
+              <h4>Web Development</h4>
+              <div class="skill-tags">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive UI</span>
+              </div>
+            </div>
+
+            <div class="skill-block">
+              <h4>Programming</h4>
+              <div class="skill-tags">
+                <span>C++</span>
+                <span>Problem Solving</span>
+              </div>
+            </div>
+
+            <div class="skill-block">
+              <h4>Databases</h4>
+              <div class="skill-tags">
+                <span>MySQL</span>
+              </div>
+            </div>
+
+            <div class="skill-block">
+              <h4>Frameworks</h4>
+              <div class="skill-tags">
+                <span>Tailwind CSS</span>
+              </div>
+            </div>
+
+            <div class="skill-block">
+              <h4>Tools</h4>
+              <div class="skill-tags">
+                <span>Git</span>
+                <span>GitHub</span>
+                <span>Visual Studio</span>
+              </div>
+            </div>
+
+            <div class="skill-block">
+              <h4>VLSI & FPGA</h4>
+              <div class="skill-tags">
+                <span>Vivado</span>
+                <span>Verilog HDL</span>
+                <span>VHDL</span>
+                <span>Xilinx ISE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="reveal">
+      <div class="section-header">
+        <div class="section-title">
+          <span></span>
+          Experience
+        </div>
+        <p class="section-subtitle">Hands-on exposure in both web development and VLSI domains.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Web Development Intern</h3>
+              <p class="card-meta">OASIS Infobyte · Online · Jan 2024 – Feb 2024</p>
+            </div>
+            <span class="pill">Web Development</span>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li>Developed responsive websites and mini-projects using HTML, CSS, and JavaScript.</li>
+              <li>Built a Weather App that fetched real-time data from a public API and displayed it in a user-friendly
+                interface.</li>
+              <li>Implemented a Login Authentication system with input validation and basic session handling.</li>
+            </ul>
+            <div class="chip-row">
+              <span class="chip accent">HTML/CSS/JS</span>
+              <span class="chip">REST API</span>
+              <span class="chip">Authentication</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">VLSI Intern</h3>
+              <p class="card-meta">CTTC, Bhubaneswar · Offline · May 2024 – June 2024</p>
+            </div>
+            <span class="pill">VLSI / FPGA</span>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li>Worked with SPARTAN and VIRTEX FPGAs using Verilog HDL and VHDL.</li>
+              <li>Designed and simulated combinational and sequential digital circuits using Xilinx ISE and Vivado.</li>
+              <li>Developed mini-projects including a traffic light controller and 4-bit ALU on FPGA boards.</li>
+              <li>Tested RTL modules, performed timing analysis and synthesis for logic optimization.</li>
+              <li>Collaborated with a team to debug hardware issues and validate designs on FPGA boards.</li>
+            </ul>
+            <div class="chip-row">
+              <span class="chip accent">FPGA</span>
+              <span class="chip">Verilog / VHDL</span>
+              <span class="chip">Digital Design</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="reveal">
+      <div class="section-header">
+        <div class="section-title">
+          <span></span>
+          Projects
+        </div>
+        <p class="section-subtitle">Translating ideas into working solutions with clear impact.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Urban Garbage Management System</h3>
+              <p class="project-meta">
+                <span>Jan 2024 – Feb 2024</span>
+                <span>HTML · CSS · JavaScript · PHP · MySQL</span>
+              </p>
+            </div>
+            <span class="pill">Full Stack</span>
+          </div>
+          <div class="card-body">
+            <p>
+              Developed a multi-role Garbage Management System enabling 4 stakeholder portals
+              (Government, Municipality Officer, Worker, Public) with streamlined complaint and task workflows.
+            </p>
+            <ul>
+              <li>Implemented complaint submission, task assignment, and real-time status tracking.</li>
+              <li>Handled 100+ concurrent records with secure role-based access control.</li>
+              <li>Designed dashboards for each stakeholder, reducing manual tracking efforts by over 60%.</li>
+            </ul>
+            <p class="project-impact">Impact: Improved transparency and accountability in urban waste management
+              workflows.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">SmartMediRecord</h3>
+              <p class="project-meta">
+                <span>March 2025 – April 2025</span>
+                <span>HTML · CSS · JavaScript · PHP · MySQL</span>
+              </p>
+            </div>
+            <span class="pill">HealthTech</span>
+          </div>
+          <div class="card-body">
+            <p>
+              Built a web-based health record system to securely manage patient reports and support doctor–patient
+              interactions.
+            </p>
+            <ul>
+              <li>Enabled secure login, report uploads, and prescription management.</li>
+              <li>Developed role-based dashboards for doctors and patients.</li>
+              <li>Used PHP with MySQL for robust server-side logic and persistent storage.</li>
+            </ul>
+            <p class="project-impact">Impact: Centralized medical records and improved accessibility for patients and
+              doctors.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Extra Curricular -->
+    <section id="extra" class="reveal">
+      <div class="section-header">
+        <div class="section-title">
+          <span></span>
+          Extra Curricular
+        </div>
+        <p class="section-subtitle">Beyond academics – teamwork, creativity, and real-world problem solving.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Member, Robotics Society</h3>
+            <p class="card-meta">Robotics Society, VSSUT · Burla, India · Apr 2023 – Present</p>
+          </div>
+          <span class="pill">Robotics</span>
+        </div>
+        <div class="card-body extra-card">
+          <p>
+            Contributed to robotics projects and competitions, blending design, programming, and hardware integration.
+          </p>
+          <p>
+            Gained experience working in teams, debugging complex systems, and presenting solutions in competitive
+            environments.
+          </p>
+          <div class="chip-row">
+            <span class="chip">Teamwork</span>
+            <span class="chip">Hardware–Software Integration</span>
+            <span class="chip">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Ishika Pradhan. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="mailto:ishikapradhan769@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ishika-pradhan-403333278" target="_blank"
+          rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/Ishika144" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Active link highlight on scroll
+    const sections = document.querySelectorAll('main section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    function setActiveLink() {
+      let currentId = '';
+      const scrollY = window.pageYOffset;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const top = scrollY + rect.top - 120;
+        const bottom = top + section.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          currentId = section.id;
+        }
+      });
+
+      navAnchors.forEach((a) => {
+        const hrefId = a.getAttribute('href').slice(1);
+        if (hrefId === currentId) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', setActiveLink);
+    window.addEventListener('load', setActiveLink);
+
+    // Scroll reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+
+    function handleReveal() {
+      const triggerBottom = window.innerHeight * 0.85;
+      reveals.forEach((el) => {
+        const boxTop = el.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', handleReveal);
+    window.addEventListener('load', handleReveal);
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
+
